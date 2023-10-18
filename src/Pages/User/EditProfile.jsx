@@ -3,13 +3,12 @@ import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { BsPersonCircle } from "react-icons/bs";
 import { getUserData, updateProfile } from "../../Redux/Slices/AuthSlice";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import HomeLayout from "../../Layouts/HomeLayout";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 
 function EditProfile() {
     const dispatch = useDispatch()
-    const navigate = useNavigate()
     const [data, setData] = useState({
         previewImage: "",
         fullName: "",
@@ -42,7 +41,7 @@ function EditProfile() {
         })
     }
 
-   async function onFormSubmit() {
+   async function onFormSubmit(e) {
         e.preventDefault();
         if(!data.fullName || !data.avatar) {
             toast.error("All fields are mandatory")
@@ -61,7 +60,6 @@ function EditProfile() {
 
         await dispatch(getUserData());
 
-        navigate("/")
     }
 
     return(
@@ -108,7 +106,7 @@ function EditProfile() {
               <button type="submit" className="w-full bg-yellow-500 hover:bg-yellow-500 transition-all ease-in-out duration-300 rounded-sm py-2 text-lg cursor-pointer">
                 Update profile
               </button>
-              <Link to="/user/profile">
+              <Link to={"/user/profile"}>
               <p className="link text-accent cursor-pointer flex items-center justify-center w-full gap-2">
                    <AiOutlineArrowLeft/> Go back to profile
               </p>
